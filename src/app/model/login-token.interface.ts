@@ -1,5 +1,8 @@
-export interface LoginTokenInterface {
-  token_type?: string;
-  access_token?: string;
-  expires_at?: string;
+import { JWTInterface } from './jwt.interface';
+
+export interface LoginTokenInterface extends JWTInterface {
+  user?: {
+    avatar: string,
+    fullName: string
+  }
 }
