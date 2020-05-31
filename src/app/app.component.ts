@@ -6,6 +6,7 @@ import { pipe } from 'rxjs';
 import { selectToken } from './store/selectors/login.selectors';
 import { AuthRepository } from './services/auth.repository';
 import { LoginCredentialsInterface } from './model/loginCredentials.interface';
+import { JWTInterface } from './model/jwt.interface';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { LoginCredentialsInterface } from './model/loginCredentials.interface';
 })
 export class AppComponent implements OnInit {
   private loginCredentials: LoginCredentialsInterface = { login: 'artem', password: '123456' };
+  public resp: LoginTokenInterface;
 
   constructor(
     private store: Store<LoginTokenInterface>,
@@ -26,9 +28,9 @@ export class AppComponent implements OnInit {
   }
 
   public hClick(): void {
-    this.store.select(state => state)
+    this.store.pipe(select(selectToken))
       .subscribe(data => {
-        console.log(data);
-      })
+        this.resp = data;
+      });
   }
 }
